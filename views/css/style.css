@@ -40,6 +40,22 @@ form {
   display: flex;
 }
 
+.pizza-small, .pizza-medium, .pizza-large {
+  will-change: transform;
+}
+
+.pizza-small img {
+  transform: scale(0.9);
+}
+
+.pizza-medium img {
+  transform: scale(1.0);
+}
+
+.pizza-large img {
+  transform: scale(1.1);
+}
+
 .randomPizzaContainer:after {
   content: "";
   display: table;
