@@ -142,6 +142,8 @@ pizzaIngredients.crusts = [
   "Stuffed Crust"
 ];
 
+// Anna: I capitalized all the words to avoid having to use the capitalize function for both adjective and nouns
+// cleaned up retriving adjectives and nouns
 var adjectives = [
   ["Dark","Morbid", "Scary", "Spooky", "Gothic", "Deviant", "Creepy", "Sadistic", "Black", "Dangerous", "Dejected", "Haunted", 
 "Morose", "Tragic", "Shattered", "Broken", "Sad", "Melancholy", "Somber", "Dark", "Gloomy", "Homicidal", "Murderous", "Shady", "Misty", 
@@ -180,6 +182,7 @@ var adjectives = [
 "Extinct", "Galactic"]
 ]
 
+// Anna: precalculate the lengths
 var adjectiveLens = [];
 for (k in adjectives)
   adjectiveLens.push(adjectives[k].length);
@@ -225,14 +228,17 @@ var nouns = [
 "Universe", "Gravity", "DarkMatter", "Constellation", "Circuit", "Asteroid"]
 ]
 
+// Anna: precalculate the lengths
 var nounLens = [];
 for (k in nouns)
   nounLens.push(nouns[k].length);
 
+// Anna: precalculate the lengths
 var adjectivesLen = adjectives.length;
 var nounsLen = nouns.length;
 
 // Generates random numbers for getAdj and getNoun functions and returns a new pizza name
+// Anna: Cleaned up generating nouns and adjectives to be more efficient
 function generator(adj, noun) {
   var adjectivesLocal = adjectives[adj];
   var nounsLocal = nouns[noun];
@@ -242,6 +248,7 @@ function generator(adj, noun) {
   return name;
 };
 
+// Anna: For all of the below randomizing functions, precalculated the length
 // Chooses random adjective and random noun
 function randomName() {
   var randomNumberAdj = (Math.random() * adjectivesLen) >> 0;
@@ -326,6 +333,7 @@ var pizzaElementGenerator = function(i) {
   pizzaContainer.id = "pizza" + i;                // gives each pizza element a unique id
   pizzaImageContainer.classList.add("col-md-6");
 
+  // Anna: use optimized image
   pizzaImage.src = "build/images/pizza.svg";
   pizzaImage.classList.add("img-responsive");
   pizzaImage.classList.add("pizza-img");
@@ -347,6 +355,7 @@ var pizzaElementGenerator = function(i) {
   return pizzaContainer;
 }
 
+// Anna: variables to hold pizzas elements and their lenght
 var pizzas;
 var pizzasLen;
 // resizePizzas(size) is called when the slider in the "Our Pizzas" section of the website moves.
@@ -361,28 +370,29 @@ var resizePizzas = function(size) {
   document.querySelector("#pizzaSize").innerHTML = sizeNames[size];
 
   // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
-  function determineSize (elem, size) {
-    var oldwidth = elem.offsetWidth;
-    var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
-    var oldsize = oldwidth / windowwidth;
-  	var newsize;
-  	var dx;
+  // function determineSize (elem, size) {
+  //   var oldwidth = elem.offsetWidth;
+  //   var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
+  //   var oldsize = oldwidth / windowwidth;
+  // 	var newsize;
+  // 	var dx;
 
-    newsize = sizes[size];
-    dx = (newsize - oldsize) * windowwidth;
+  //   newsize = sizes[size];
+  //   dx = (newsize - oldsize) * windowwidth;
 
-    return (oldwidth + dx) + 'px';
-  }
+  //   return (oldwidth + dx) + 'px';
+  // }
 
   // Iterates through pizza elements on the page and changes their widths
+  // Anna: Use classes when resizing pizza rather than recalculating styles on the fly
   function changePizzaSizes(size) {
     // var dx = null;
-    var newwidth;
+    // var newwidth;
     var i;
     var pizza;
-    if (pizzasLen) {
-      newwidth = determineSize(pizzas[0], size);
-    }
+    // if (pizzasLen) {
+    //   newwidth = determineSize(pizzas[0], size);
+    // }
     for (i = 0; i < pizzasLen; i++) {
       pizza = pizzas[i]; //style.width = newwidth;
       if (pizza.classList.contains('pizza-small'))
@@ -420,6 +430,8 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
   console.log("Average time to generate last 10 frames: " + sum / 10 + "ms");
 }
 
+
+// Anna: use requestAnimationFrame to optimize backround repaining
 /**
 * Provides requestAnimationFrame in a cross browser way.
 * @author paulirish / http://paulirish.com/
@@ -446,6 +458,7 @@ if ( !window.requestAnimationFrame ) {
 // The following code for sliding background pizzas was pulled from Ilya's demo found at:
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
+// Anna: variables to store background pizzas and their length
 var movers = null;
 var moversLength = 0;
 
@@ -455,6 +468,7 @@ function updatePositions() {
   window.performance.mark("mark_start_frame");
 
   requestAnimationFrame(function(){
+    // Anna: get scrollTop only once
     var scrollTop = document.body.scrollTop;
     var phase;
     var mover;
@@ -483,10 +497,12 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
+  // Anna: only paint as many background pizzas as needed
   var count = Math.ceil(window.innerHeight/s) * Math.ceil(window.innerWidth/s);
   for (var i = 0; i < count; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
+    // Anna: use optimized version of the image from the build folder
     elem.src = "build/images/pizza.svg";
     elem.style.height = "100px";
     elem.style.width = "73.333px";

@@ -40,6 +40,7 @@ form {
   display: flex;
 }
 
+/* Anna: classes for resizing pizzas */
 .pizza-small, .pizza-medium, .pizza-large {
   will-change: transform;
 }

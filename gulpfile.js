@@ -1,3 +1,6 @@
+// Automatically do some optimizations like js minification and concatenation,
+// styles minification and concatenation and image optimizing
+
 // include gulp
 var gulp = require('gulp');
 var changed = require('gulp-changed');

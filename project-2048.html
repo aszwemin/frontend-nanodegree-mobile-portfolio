@@ -11,6 +11,7 @@
     <!-- <link href="//fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet"> -->
 
     <!--<link href="css/style.css" rel="stylesheet">-->
+    <!-- Anna: inline the css styles -->
     <style>
       html {
         font-size: 100%;
@@ -62,8 +63,10 @@
         header p { padding-left: 4.5em;}
       }
     </style>
+    <!-- Anna: added media argument to the below stylesheet loading -->
     <link href="css/print.css" rel="stylesheet" media="print">
 
+    <!-- Anna: load the below javascript asynchronously -->
     <script async src="http://www.google-analytics.com/analytics.js"></script>
     <script async src="build/js/perfmatters.js"></script>
     <script async src="build/js/ga.js"></script>
@@ -71,6 +74,7 @@
 
   <body>
     <header>
+      <!-- Anna: use optimized versions of images from the build folder -->
       <a href="/"><img src="build/img/profilepic.jpg"></a>
       <p>Cameron Pittman<br><span>Course Developer</span></p>
     </header>
